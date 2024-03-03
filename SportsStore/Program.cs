@@ -5,7 +5,7 @@ builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddMvc(options => options.EnableEndpointRouting = false).AddControllersAsServices();
+builder.Services.AddMvc().AddControllersAsServices();
 
 var app = builder.Build();
 
