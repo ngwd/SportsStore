@@ -1,9 +1,12 @@
-﻿namespace SportsStore
+﻿using SportsStore.Models;
+
+namespace SportsStore
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddMvc();
         }
 
