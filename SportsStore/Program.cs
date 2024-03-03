@@ -1,7 +1,11 @@
+using SportsStore.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc(options => options.EnableEndpointRouting = false).AddControllersAsServices();
 
 var app = builder.Build();
 
@@ -22,6 +26,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Product}/{action=List}/{id?}");
 
 app.Run();
