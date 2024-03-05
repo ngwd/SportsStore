@@ -1,11 +1,20 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc().AddControllersAsServices();
+
+IConfiguration Config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange:true).Build();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(Config["SportStoreProducts:ConnectionString"]
+));
+// builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
+builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 
 var app = builder.Build();
 
