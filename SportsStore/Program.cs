@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,32 +31,31 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: null,
+        pattern: "{category}/Page{productPage:int}",
+        defaults: new { controller = "Product", action = "List", category = "{category}", productPage = "{productPage:int}" }
+    );
 
+    endpoints.MapControllerRoute(
+        name: null,
+        pattern: "Page{productPage:int}",
+        defaults: new { controller = "Product", action = "List", productPage = 1 }
+    );
+    endpoints.MapControllerRoute(
+        name: null,
+        pattern: "{category}",
+        defaults: new { controller = "Product", action = "List", productPage = 1 }
+    );
+    endpoints.MapControllerRoute(
+        name: null,
+        pattern: "",
+        defaults: new { controller = "Product", action = "List", productPage = 1 }
+    );
+    endpoints.MapControllerRoute(name: null, pattern: "{controller}/{action}/{id?}");
+});
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Product}/{action=List}/{id?}");
-
-app.MapControllerRoute(
-    name: "pagination",
-    pattern: "Products/Page{productPage}",
-    defaults: new { controller = "Product", action = "List" }
-);
-
-/*
-app.UseMvc( routes => {
-    routes.MapRoute(
-        name: "pagination",
-        template: "Products/Page{productPage}",
-        default:new { controller = "Product", action = "List" }
-    );
-    routes.MapRoute(
-        name: "default",
-        template: "{controller=Product}/{action=List}/{id?}"
-    );
-})
-*/
-
 // SeedData.EnsurePopulated(app);
 app.Run();
