@@ -14,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(Config["SportStoreProducts:ConnectionString"]
 ));
 // builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
-builder.Services.AddScoped<IProductRepository, EFProductRepository>();
+builder.Services.AddTransient<IProductRepository, EFProductRepository>();
 
 var app = builder.Build();
 
@@ -37,4 +37,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Product}/{action=List}/{id?}");
 
+// SeedData.EnsurePopulated(app);
 app.Run();
