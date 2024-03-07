@@ -37,5 +37,25 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Product}/{action=List}/{id?}");
 
+app.MapControllerRoute(
+    name: "pagination",
+    pattern: "Products/Page{productPage}",
+    defaults: new { controller = "Product", action = "List" }
+);
+
+/*
+app.UseMvc( routes => {
+    routes.MapRoute(
+        name: "pagination",
+        template: "Products/Page{productPage}",
+        default:new { controller = "Product", action = "List" }
+    );
+    routes.MapRoute(
+        name: "default",
+        template: "{controller=Product}/{action=List}/{id?}"
+    );
+})
+*/
+
 // SeedData.EnsurePopulated(app);
 app.Run();
