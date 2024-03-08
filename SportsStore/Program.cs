@@ -36,7 +36,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: null,
         pattern: "{category}/Page{productPage:int}",
-        defaults: new { controller = "Product", action = "List", category = "{category}", productPage = "{productPage:int}" }
+        defaults: new { controller = "Product", action = "List"}
     );
 
     endpoints.MapControllerRoute(
