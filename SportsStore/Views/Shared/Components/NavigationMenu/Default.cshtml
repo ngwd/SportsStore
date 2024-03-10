@@ -14,7 +14,7 @@
 
 @model IEnumerable<string>
 <div class="button-container">
-    <a class="btn btn-outline-primary"
+    <a class="btn btn-outline-secondary"
         asp-action ="List"
         asp-controller="Product"
         asp-route-category="">
@@ -22,15 +22,8 @@
     </a>
     @foreach(string category in Model)
     {
-        <!--a class="btn btn-outline-primary"
-            @(category == ViewBag.SelectedCategory ? "btn-outline-primary" : "btn-outline-secondary")
-            asp-action ="List"
-            asp-controller="Product"
-            asp-route-category="@category"
-            asp-route-productPage ="1">
-            @category
-        </-->
-        <a class="btn btn-outline-primary"
+        <a class="btn 
+            @(category == ViewBag.SelectedCategory ? "btn-outline-primary" : "btn-outline-secondary")"
             asp-action ="List"
             asp-controller="Product"
             asp-route-category="@category"
