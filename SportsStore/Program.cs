@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc().AddControllersAsServices();
 
+// 
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
 IConfiguration Config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange:true).Build();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -31,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
